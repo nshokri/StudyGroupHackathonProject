@@ -16,7 +16,7 @@
             <section>
                 <div class="description">
                     <ul>
-                        <li>About us: We are a group of people trying to make our backend developer feel better about his database.</li>
+                        <li>About us: We are a group of people.</li>
                         <li>Authors: Cameron Shokri, Nick Shokri, and Neema Shokri</li>
                     </ul>
                 </div>
