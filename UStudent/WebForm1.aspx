@@ -45,6 +45,26 @@
                     <div class="dates">
                         <h2>Availability</h2>
         
+                        <ul>
+                            <li><select>
+                                <option value="Sunday">Sunday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wedensday">Wedensday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select></li>
+
+                            <li><select>
+                                <option value="0:00">0:00</option>
+                            </select></li>
+
+                            <li>to</li>
+
+                            <li></li>
+                        </ul>
+
                         <button>Add</button>
                     </div>
                 </div>
