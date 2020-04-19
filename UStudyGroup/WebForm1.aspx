@@ -24,7 +24,7 @@
                 <div>
                     <div class="info">
                         <ul>
-                            <li><select id="states" onchange="stateChanged()">
+                            <li><select name="states" id="states" onchange="stateChanged()">
                                 <option value="state">Select State</option>
                             </select></li>
     
@@ -44,6 +44,10 @@
                 </div>
             </section>
         </div>
+        <asp:DropDownList ID="DropDownList1" runat="server"  OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+            <asp:ListItem>test</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" Width="89px" />
     </form>
 </body>
 <script>
