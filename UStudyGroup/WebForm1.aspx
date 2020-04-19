@@ -6,70 +6,34 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="height: 286px">
     <form id="form1" runat="server">
-        <div>
-            <header>
-                <h1>U Student Groups</h1>
-            </header>
-        
-            <section>
-                <div class="description">
-                    <ul>
-                        <li><h3 class="descTitle">About Us</h3></li>
-                        <li class="about">We are a group of people with a dream that one day we will decide on a project.</li>
-                        <li class="authors">Created by Cameron Shokri, Nick Shokri, and Neema Shokri</li>
-                    </ul>
-                </div>
-        
-                <div>
-                    <div class="info">
-                        <ul>
-                            <li><select id="states" onchange="stateChanged()">
-                                <option value="state">Select State</option>
-                            </select></li>
-        
-                            <li style="visibility: hidden" id="info2"><select id="schools">
-                                <option value="school">Select School</option>
-                            </select></li>
-        
-                            <li hidden><select id="classes">
-                                <option value="class">Select Class</option>
-                            </select></li>
-        
-                            <li hidden><button>Find</button></li>
-        
-                            <li hidden><button>Create</button></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+        <div aria-hidden="False" aria-orientation="horizontal">
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" BackColor="White" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" ForeColor="Black">
+            </asp:DropDownList>
+            <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" Visible="False" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:DropDownList ID="DropDownList3" runat="server" AutoPostBack="True" Visible="False" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged">
+            </asp:DropDownList>
         </div>
-        <asp:DropDownList ID="DropDownList1" runat="server"  OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
-            <asp:ListItem>test</asp:ListItem>
-        </asp:DropDownList>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" Width="89px" />
+        <p>
+            <asp:Label ID="Label1" runat="server" Text="Name" Visible="False"></asp:Label>
+            <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Visible="False"></asp:TextBox>
+        </p>
+        <p>
+        <asp:Label ID="Label2" runat="server" Text="Email" Visible="False"></asp:Label>
+        <asp:TextBox ID="TextBox2" runat="server" AutoPostBack="True" OnTextChanged="TextBox2_TextChanged" Visible="False"></asp:TextBox>
+        </p>
+        <p>
+            <asp:Label ID="Label3" runat="server" Text="Phone" Visible="False"></asp:Label>
+            <asp:TextBox ID="TextBox3" runat="server" AutoPostBack="True" OnTextChanged="TextBox3_TextChanged" Visible="False"></asp:TextBox>
+        </p>
+        <asp:Label ID="Label4" runat="server" Text="Max" Visible="False"></asp:Label>
+        <asp:TextBox ID="TextBox4" runat="server" AutoPostBack="True" OnTextChanged="TextBox4_TextChanged" Visible="False"></asp:TextBox>
+        <p>
+            <asp:Button ID="Button1" runat="server" Text="Join a group" Visible="False" OnClick="Button1_Click" />
+            <asp:Button ID="Button2" runat="server" Text="Create" Visible="False" OnClick="Button2_Click"/>
+        </p>
     </form>
 </body>
-<script>
-    var states = ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Minor Outlying Islands", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
-    var statesSelection = document.getElementById("states");
-
-    for(var i = 0; i < states.length; i++)
-    {
-        var node = document.createElement("OPTION");
-        var optionNode = document.createTextNode(states[i]);
-        node.appendChild(optionNode);
-        statesSelection.appendChild(node);
-    }
-
-    function stateChanged()
-    {
-        var stateSelected = document.getElementById("states").value;
-        if(stateSelected != "Select State")
-        {
-            document.getElementById("info2").style.visibility = "visible";
-        }
-    }
-</script>
 </html>
