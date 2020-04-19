@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Net.Mail;
 
 namespace UStudyGroup
 {
@@ -83,6 +84,9 @@ namespace UStudyGroup
             SqlCommand findGroups = new SqlCommand($"Select GroupID From Groups Where GroupCurrent < GroupMax And CourseID =" +
                                                     $"(Select CourseID From Courses Where CourseCode = '{info[2]}');", con);
 
+
+
+
             con.Open();
 
             SqlDataReader reader = findGroups.ExecuteReader();
@@ -91,22 +95,76 @@ namespace UStudyGroup
             {
                 Button1.Text = "No groups were found Create New Group Instead";
                 Button2.Visible = true;
-            } else //there is a group
+            }
+            else //there is a group
             {
                 reader.Read();
                 SqlCommand joinGroup = new SqlCommand("Execute dbo.JoinGroup @GroupID, @MemberName, @MemberEmail, @MemberPhone", con);
-                joinGroup.Parameters.AddWithValue("@GroupID", reader.GetInt32(reader.GetOrdinal("GroupID")));
+                int groupID = reader.GetInt32(reader.GetOrdinal("GroupID"));
+                joinGroup.Parameters.AddWithValue("@GroupID", groupID);
                 joinGroup.Parameters.AddWithValue("@MemberName", TextBox1.Text);
                 joinGroup.Parameters.AddWithValue("@MemberEmail", TextBox2.Text);
                 joinGroup.Parameters.AddWithValue("@MemberPhone", TextBox3.Text);
                 reader.Close();
+
+                //Notifies other members of new member
+                SqlCommand notifyMembers = new SqlCommand("Execute dbo.NotifyMembers @GroupID", con);
+                notifyMembers.Parameters.AddWithValue("@GroupID", groupID);
+                SqlDataReader reader2 = notifyMembers.ExecuteReader();
+
+                if (reader2.HasRows)
+                {
+                    while (reader2.Read())
+                    {
+                        MailMessage message = new MailMessage("UStudyGroups@Gmail.com", reader2.GetString(reader2.GetOrdinal("MemberEmail")), "New Member Added",
+                                                                TextBox1.Text + " has been added to the " + DropDownList3.Text + " study group! Contact Info: " + TextBox2.Text + ", " + TextBox3.Text); //text in email
+                        message.IsBodyHtml = true;
+                        SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                        client.EnableSsl = true;
+                        client.Credentials = new System.Net.NetworkCredential("UStudyGroups@Gmail.com", "Doomeddogs123");
+                        client.Send(message);
+                    }
+                }
+                reader2.Close();
+
+                SqlCommand notifyNewMember = new SqlCommand("Execute dbo.NotifyNewMember @GroupID", con);
+                notifyNewMember.Parameters.AddWithValue("@GroupID", groupID);
+                SqlDataReader reader3 = notifyNewMember.ExecuteReader();
+                if (reader3.HasRows)
+                {
+                    string result = "You have joined the " + DropDownList3.Text + " study group!The contact info of the other members are; \n";
+                    while (reader3.Read())
+                    {
+                        result += reader3.GetString(reader3.GetOrdinal("MemberName")) + ": " + reader3.GetString(reader3.GetOrdinal("MemberEmail")) + ", Phone: " + reader3.GetString(reader3.GetOrdinal("MemberPhone")) + "|";
+                    }
+
+                    MailMessage message = new MailMessage("UStudyGroups@Gmail.com", TextBox2.Text, "Joined Study Group", result); //text in email
+
+
+                    message.IsBodyHtml = true;
+                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                    client.EnableSsl = true;
+                    client.Credentials = new System.Net.NetworkCredential("UStudyGroups@Gmail.com", "Doomeddogs123");
+
+                    while (reader3.Read())
+                    {
+
+                    }
+
+                    client.Send(message);
+                    reader3.Close();
+                }
+
                 joinGroup.ExecuteNonQuery();
-                TextBox1.Text = "";
-                TextBox2.Text = "";
-                TextBox3.Text = "";
-                TextBox4.Text = "";
+
                 Button1.Text = "You've Joined a group!";
             }
+
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+            TextBox3.Text = "";
+            TextBox4.Text = "";
+
             con.Close();
         }
 
@@ -114,7 +172,7 @@ namespace UStudyGroup
         {
             SqlConnection con = new SqlConnection("Server=tcp:doomed.database.windows.net,1433;Initial Catalog=StudyGroups;Persist Security Info=False;User ID=nshokri;Password=Doomeddogs123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             SqlCommand makeGroups = new SqlCommand("Execute dbo.CreateNewGroup " +
-                  "@GroupMax, @CourseCode, @MemberName, @MemberPhone, @MemberEmail", con);
+                                                    "@GroupMax, @CourseCode, @MemberName, @MemberPhone, @MemberEmail", con);
             makeGroups.Parameters.AddWithValue("@GroupMax", TextBox4.Text);
             makeGroups.Parameters.AddWithValue("@CourseCode", DropDownList3.Text);
             makeGroups.Parameters.AddWithValue("@MemberName", TextBox1.Text);
@@ -123,6 +181,13 @@ namespace UStudyGroup
             con.Open();
                 makeGroups.ExecuteNonQuery();
             con.Close();
+
+            MailMessage message = new MailMessage("UStudyGroups@Gmail.com", TextBox2.Text, "Created New Study Group", "Congratualtions you've created a new study group for " + DropDownList3.Text + " You will be notified when new members join your group.");    //text in email
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.Credentials = new System.Net.NetworkCredential("UStudyGroups@Gmail.com", "Doomeddogs123");
+            client.Send(message);
 
             TextBox1.Text = "";
             TextBox2.Text = "";
