@@ -1,5 +1,17 @@
+--Drops all tables
+Drop Table Groups;
+Go
+Drop Table Courses;
+Go
+Drop Table Schools;
+Go
+Drop Table States;
+Go
+Drop Table Members;
+Go
+-----Creates Tables
 Create Table dbo.States(
-	StateID int Not Null Identity,
+	StateID int Not Null Identity, 
 	StateName varchar(100) Not Null,
 	Constraint pkStates Primary Key (StateID),
 	Constraint uqStateName Unique (StateName)
@@ -35,13 +47,13 @@ Create Table dbo.Groups(
 );
 Go
 
-Create Table dbo.[Days](
+/*Create Table dbo.[Days](
 	[DayOfWeek] int Not Null,
 	GroupID int Not Null,
 	Constraint pkDays Primary Key ([DayOfWeek], GroupID),
 	Constraint fkGroupID Foreign Key (GroupID) References dbo.Groups(GroupID)
 );
-Go
+Go 
 
 Create Table dbo.Times(
 	[DayOfWeek] int Not Null,
@@ -51,7 +63,7 @@ Create Table dbo.Times(
 	Constraint pkTimes Primary Key ([DayOfWeek], GroupID),
 	Constraint fkDayOfWeek Foreign Key ([DayOfWeek]) References dbo.[Days]([DayOfWeek])
 );
-Go
+Go */
 
 Create Table dbo.Members(
 	MemberID int Not Null Identity,
@@ -65,4 +77,9 @@ Create Table dbo.Members(
 	Constraint uqMemberEmail Unique (MemberEmail),
 	Constraint ckMemberPhone Check (MemberPhone like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
+Go
+
+
+----Inserts values
+Insert Into States (StateName) Values ('Alabama'),  ('Alaska'),  ('Arizona'),  ('Arkansas'),  ('California'),  ('Colorado'),  ('Connecticut'),  ('Delaware'),  ('Florida'),  ('Georgia'), ('Hawaii'),  ('Idaho'),  ('Illinois'),  ('Indiana'),  ('Iowa'),  ('Kansas'),  ('Kentucky'),  ('Louisiana'),  ('Maine'),  ('Maryland'),  ('Massachusetts'),  ('Michigan'),  ('Minnesota'),  ('Mississippi'),  ('Missouri'),  ('Montana'),  ('Nebraska'),  ('Nevada'),  ('New Hampshire'),  ('New Jersey'),  ('New Mexico'),  ('New York'),  ('North Carolina'),  ('North Dakota'),  ('Ohio'),  ('Oklahoma'),  ('Oregon'), ( 'Pennsylvania'), ( 'Rhode Island'), ( 'South Carolina'), ( 'South Dakota'),  ('Tennessee'), ( 'Texas'), ( 'Utah'), ( 'Vermont'),  ('Virginia'),  ('Washington'),  ('West Virginia'), ( 'Wisconsin'),(  'Wyoming');
 Go
