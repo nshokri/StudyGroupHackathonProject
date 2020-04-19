@@ -1,0 +1,82 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    background: #1A1717;
+}
+
+header h1 {
+    margin: 0px;
+    padding: 30px;
+    font-size: 50px;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    background: #2c2e36;
+}
+
+.description {
+    float: left;
+    background: #3B3D46;
+    width: 350px;
+}
+
+.description ul {
+    font-size: 25px;
+    color: white;
+    list-style: none;
+    padding: 0px 20px;
+    line-height: 30px;
+}
+
+.descTitle {
+    text-align: center;
+    margin: 15px 20px;
+    font-size: 40px;
+}
+
+.authors {
+    line-height: 20px;
+    margin-top: 20px;
+    font-size: 17px;
+    text-align: center;
+}
+
+.info {
+    float: left;
+    margin: 50px 0px 0px 420px;
+}
+
+.info ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.info li {
+    margin: 20px 0px;
+}
+
+.info select {
+    padding: 20px;
+    font-size: 25px;
+    border-color: rgb(66, 82, 141);
+    border-width: 2px;
+    background: none;
+    border-radius: 15px;
+    color: white;
+    transition: 0.25s;
+}
+
+.info select:hover {
+    transition: 0.25s;
+    border-color: rgb(114, 137, 219);
+}
+
+.info select:focus {
+    outline: none !important;
+}
+
+.info select option {
+    color: black;
+}

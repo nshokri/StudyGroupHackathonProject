@@ -12,33 +12,34 @@
             <header>
                 <h1>U Student Groups</h1>
             </header>
-    
+        
             <section>
                 <div class="description">
                     <ul>
-                        <li>About us: We are a group of people.</li>
-                        <li>Authors: Cameron Shokri, Nick Shokri, and Neema Shokri</li>
+                        <li><h3 class="descTitle">About Us</h3></li>
+                        <li class="about">We are a group of people with a dream that one day we will decide on a project.</li>
+                        <li class="authors">Created by Cameron Shokri, Nick Shokri, and Neema Shokri</li>
                     </ul>
                 </div>
-    
+        
                 <div>
                     <div class="info">
                         <ul>
-                            <li><select name="states" id="states" onchange="stateChanged()">
+                            <li><select id="states" onchange="stateChanged()">
                                 <option value="state">Select State</option>
                             </select></li>
-    
+        
                             <li style="visibility: hidden" id="info2"><select id="schools">
                                 <option value="school">Select School</option>
                             </select></li>
-    
-                            <li style="visibility: hidden"><select id="classes">
+        
+                            <li hidden><select id="classes">
                                 <option value="class">Select Class</option>
                             </select></li>
-    
-                            <li style="visibility: hidden"><button>Find</button></li>
-    
-                            <li style="visibility: hidden"><button>Create</button></li>
+        
+                            <li hidden><button>Find</button></li>
+        
+                            <li hidden><button>Create</button></li>
                         </ul>
                     </div>
                 </div>
